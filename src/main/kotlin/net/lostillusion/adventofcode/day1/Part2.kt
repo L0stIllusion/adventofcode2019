@@ -6,7 +6,7 @@ import kotlin.math.roundToInt
 
 fun main() {
     val sum = ResourceReader<Int>("/day1-part1")
-        .computeToCollection(mutableListOf(), { _, content -> content.toInt() })
+        .computeToCollection(mutableListOf(), "\n", { _, content -> content.toInt() })
         .map(::handleFuelFormula)
         .sum()
     println(sum)

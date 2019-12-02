@@ -5,21 +5,24 @@ package net.lostillusion.adventofcode.utils
 import java.io.File
 
 interface Reader<O> {
-    fun <C: MutableCollection<O>>computeToCollection(
+    fun <C: MutableCollection<O>> computeToCollection(
         collection: C,
+        delimiter: String,
         composer: (i: Int, content: String) -> O
     ): Collection<O>
 }
 
 open class AnyReader<I, O>(i: I, iReader: (i: I) -> String): Reader<O> {
-    private val content = iReader.invoke(i)
+    val content = iReader.invoke(i)
 
     override fun <C : MutableCollection<O>> computeToCollection(
         collection: C,
+        delimiter: String,
         composer: (i: Int, content: String) -> O
     ): C {
         val objects = content
-            .split("\n")
+            .split(delimiter)
+            .map { it.trim() }
             .toMutableList()
             .also { list -> list.removeIf { it.isEmpty() } }
             .mapIndexed(composer)
