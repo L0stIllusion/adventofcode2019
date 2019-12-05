@@ -1,7 +1,5 @@
 package net.lostillusion.adventofcode.day4
 
-import java.util.stream.Collectors
-
 interface PasswordRequirement {
     fun testPassword(input: String): Boolean
 }
@@ -40,8 +38,7 @@ class IncreasingDigitPasswordRequirement: PasswordRequirement {
     override fun testPassword(input: String): Boolean {
         return input.split("")
             .filter { it.isNotEmpty() }
-            .stream()
             .sorted()
-            .collect(Collectors.joining()) == input
+            .joinToString("") == input
     }
 }
